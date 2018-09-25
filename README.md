@@ -1,6 +1,8 @@
 # monty
 
-![A stack of dogs](https://payload148.cargocollective.com/1/11/353777/5270131/Dogs.jpg)
+<p align="center"> 
+<img src="https://payload148.cargocollective.com/1/11/353777/5270131/Dogs.jpg">
+</p>
 
 The Monty language is a scripting language that is first compiled into Monty byte codes. It relies on a unique stack, with specific instructions to manipulate it. The goal of this project is to create an interpreter for Monty ByteCodes files.
 
