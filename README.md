@@ -16,5 +16,5 @@ Project | Description
 
 
 ## Authors
-* [**Annesophie Le Bloas**] [https://github.com/aslebloas]
-* [**Francesca Cantor**] [https://github.com/fcantor]
+* [**Annesophie Le Bloas**] (https://github.com/aslebloas)
+* [**Francesca Cantor**] (https://github.com/fcantor)
