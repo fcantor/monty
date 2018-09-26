@@ -64,12 +64,14 @@ int main(int argc, char **argv)
 
 			/* Parse the first elements of the line */
 			func = strtok(string, " ");
+
 			token = atoi(strtok(NULL, " "));
+			printf("token: %d\n", token);
 
 			push(&stack, line_num);
 
-			printf("After push\n");
-			printf("%s has argument %d\n", func, token);
+			printf("After push:\n");
+			printf("%s %d\n", func, token);
 		}
 		/* Free memory and close the file */
 
