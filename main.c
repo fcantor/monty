@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
 	stack_t *stack, *node;
-	void (*func)(stack_t **, unsigned int);
+	stack_t *(*func)(stack_t **, unsigned int);
 	char *error;
 
 	stack = NULL;
@@ -41,7 +41,6 @@ int main(int argc, char **argv)
 			read_c = getline(&string, &nbytes, file);
 			if (read_c == -1)
 			{
-				printf("Failed to read file\n");
 				free(string);
 				fclose(file);
 				exit(1);
