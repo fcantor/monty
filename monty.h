@@ -8,7 +8,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <string.h>
 
+/* Declaration of the global variables */
 extern int token;
 
 /* Structures */
@@ -45,6 +47,7 @@ typedef struct instruction_s
 
 
 /* Prototypes */
-void *push(stack_t **stack, unsigned int line_number);
+stack_t *push(stack_t **stack, unsigned int line_number);
+void free_stack(stack_t *stack);
 
 #endif /* _MONTY_H_ */
