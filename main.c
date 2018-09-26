@@ -4,18 +4,23 @@
 int token = 0;
 
 /**
- *
+ * main - Interprets bytecode
+ * @argc: number of arguments
+ * @argv: array of arguments
+ * Return: 0 on success
  */
 int main(int argc, char **argv)
 {
 	const char *filename;
 	char *string, *func;
 	size_t nbytes = 1;
-	FILE* file;
+	FILE *file;
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
 	stack_t *stack;
 	char *error;
+
+	stack_t
 
 	stack = NULL;
 	if (argc == 2)
@@ -24,7 +29,7 @@ int main(int argc, char **argv)
 
 		/* Open File with the bytecodes */
 		file = fopen(filename, "r");
-		if (!file)
+		if (file == NULL)
 		{
 			printf("Failed to open file\n");
 			exit(1);
@@ -39,6 +44,7 @@ int main(int argc, char **argv)
 			{
 				printf("Failed to read file\n");
 				free(string);
+				fclose(file);
 				exit(1);
 			}
 
@@ -68,9 +74,10 @@ int main(int argc, char **argv)
 			printf("%s %d\n", func, token);
 		}
 		/* Free memory and close the file */
+
 		free_stack(stack);
-		if (!file)
-			fclose(file);
+
+		fclose(file);
 	}
 	else
 	{
