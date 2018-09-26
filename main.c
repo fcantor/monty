@@ -12,15 +12,14 @@ int token = 0;
 int main(int argc, char **argv)
 {
 	const char *filename;
-	char *string, *func;
+	char *string, *opcode;
 	size_t nbytes = 1;
 	FILE *file;
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
-	stack_t *stack;
+	stack_t *stack, *node;
+	void (*func)(stack_t **, unsigned int);
 	char *error;
-
-	stack_t
 
 	stack = NULL;
 	if (argc == 2)
@@ -63,15 +62,17 @@ int main(int argc, char **argv)
 			}
 
 			/* Parse the first elements of the line */
-			func = strtok(string, " ");
+			opcode = strtok(string, " ");
 
 			token = atoi(strtok(NULL, " "));
 			printf("token: %d\n", token);
+			printf("%s", opcode);
 
-			push(&stack, line_num);
+			func = op_func(opcode);
+			node = func(&stack, line_num);
 
 			printf("After push:\n");
-			printf("%s %d\n", func, token);
+			printf("%s %d == %d\n", opcode, node->n, token);
 		}
 		/* Free memory and close the file */
 
