@@ -4,18 +4,23 @@
 int token = 0;
 
 /**
- *
+ * main - Interprets bytecode
+ * @argc: number of arguments
+ * @argv: array of arguments
+ * Return: 0 on success
  */
 int main(int argc, char **argv)
 {
 	const char *filename;
 	char *string, *func;
 	size_t nbytes = 1;
-	FILE* file;
+	FILE *file;
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
 	stack_t *stack;
 	char *error;
+
+	stack_t
 
 	stack = NULL;
 	if (argc == 2)
