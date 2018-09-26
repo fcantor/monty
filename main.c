@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 
 		/* Open File with the bytecodes */
 		file = fopen(filename, "r");
-		if (!file)
+		if (file == NULL)
 		{
 			printf("Failed to open file\n");
 			exit(1);
@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 			{
 				printf("Failed to read file\n");
 				free(string);
+				fclose(file);
 				exit(1);
 			}
 
@@ -66,9 +67,10 @@ int main(int argc, char **argv)
 			printf("%s has argument %d\n", func, token);
 		}
 		/* Free memory and close the file */
+
 		free_stack(stack);
-		if (!file)
-			fclose(file);
+
+		fclose(file);
 	}
 	else
 	{
