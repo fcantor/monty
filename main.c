@@ -18,7 +18,6 @@ int main(int argc, char **argv)
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
 	stack_t *stack, *node;
-	void (*func)(stack_t **, unsigned int);
 	char *error;
 
 	stack = NULL;
@@ -41,7 +40,6 @@ int main(int argc, char **argv)
 			read_c = getline(&string, &nbytes, file);
 			if (read_c == -1)
 			{
-				printf("Failed to read file\n");
 				free(string);
 				fclose(file);
 				exit(1);
@@ -68,8 +66,7 @@ int main(int argc, char **argv)
 			printf("token: %d\n", token);
 			printf("%s", opcode);
 
-			func = op_func(opcode);
-			node = func(&stack, line_num);
+			node = op_func(opcode)(&stack, line_num);
 
 			printf("After push:\n");
 			printf("%s %d == %d\n", opcode, node->n, token);

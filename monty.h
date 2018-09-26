@@ -42,13 +42,13 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	stack_t (*f)(stack_t **stack, unsigned int line_number);
+	stack_t *(*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 
 /* Prototypes */
 stack_t *push(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
-stack_t (*op_func(char *s))(stack_t **stack, unsigned int line_number);
+stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_number);
 
 #endif /* _MONTY_H_ */
