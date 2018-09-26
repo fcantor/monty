@@ -9,6 +9,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+extern int token;
+
 /* Structures */
 
 /**
