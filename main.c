@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	FILE *file;
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
-	stack_t *stack, *node;
+	stack_t *stack;
 	char *error;
 
 	stack = NULL;
@@ -38,6 +38,7 @@ int main(int argc, char **argv)
 		{
 			string = NULL;
 			read_c = getline(&string, &nbytes, file);
+
 			if (read_c == -1)
 			{
 				free(string);
@@ -60,16 +61,11 @@ int main(int argc, char **argv)
 			}
 
 			/* Parse the first elements of the line */
-			opcode = strtok(string, " ");
+			opcode = strtok(string, " \n");
+			if (strcmp(opcode, "push") == 0)
+				token = atoi(strtok(NULL, " \n"));
 
-			token = atoi(strtok(NULL, " "));
-			printf("token: %d\n", token);
-			printf("%s", opcode);
-
-			node = op_func(opcode)(&stack, line_num);
-
-			printf("After push:\n");
-			printf("%s %d == %d\n", opcode, node->n, token);
+			op_func(opcode)(&stack, line_num);
 		}
 		/* Free memory and close the file */
 

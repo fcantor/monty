@@ -11,20 +11,24 @@ stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_num)
 {
 	instruction_t ops[] = {
 		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
-	int i;
+	char *opcode;
+	int i = 0;
 
-	i = 0;
-	while (i < 2)
+	while (i < 3)
 	{
-		/* if the pointer is equal to the operator val */
-		if (*s == *(ops[i]).opcode)
+		opcode = (ops[i]).opcode;
+		/* if the opcode is in the list */
+		if (strcmp(s, opcode) == 0)
 		{
 			/* return that value */
 			return (*(ops[i]).f);
 		}
 		i++;
 	}
+
 	return (NULL);
 }
