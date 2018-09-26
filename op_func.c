@@ -7,16 +7,10 @@
  * Return: A pointer to the function that corresponds to the operator
  */
 
-void (*op_func(char *s))(stack_t, unsigned int)
+stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_num)
 {
-	op_t ops[] = {
+	instruction_t ops[] = {
 		{"push", push},
-/*		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"swap", swap},
-		{"add", add},
-		{"nop", nop}, */
 		{NULL, NULL}
 	};
 	int i;
@@ -25,7 +19,7 @@ void (*op_func(char *s))(stack_t, unsigned int)
 	while (i < 2)
 	{
 		/* if the pointer is equal to the operator val */
-		if (*s == *(ops[i]).op)
+		if (*s == *(ops[i]).opcode)
 		{
 			/* return that value */
 			return (*(ops[i]).f);
