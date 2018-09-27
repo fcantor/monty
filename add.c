@@ -17,7 +17,8 @@ stack_t *add(stack_t **stack, unsigned int line_number)
 	if (!head || !head->next)
 	{
 		/* Print error, free, and exit */
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't add, stack too short\n",
+line_number);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
