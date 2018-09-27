@@ -18,7 +18,7 @@ stack_t *pop(stack_t **stack, unsigned int line_number __attribute__((unused)))
 		/* Print error, free, and exit */
 		fprintf(stderr, "L%d: can't pop an empty stack\n",
 			line_number);
-		free_stack(*stack);
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 	/* Stack now points to the next node */
