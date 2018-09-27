@@ -45,6 +45,8 @@ int main(int argc, char **argv)
 			if (read_c == -1)
 			{
 				free(string);
+				if (stack != NULL)
+					free_stack(&stack);
 				fclose(file);
 				exit(1);
 			}
@@ -88,7 +90,6 @@ int main(int argc, char **argv)
 						line_num);
 
 					free(string);
-					free(num_str);
 					free_stack(&stack);
 					fclose(file);
 					exit(EXIT_FAILURE);
@@ -100,8 +101,6 @@ int main(int argc, char **argv)
 		}
 		/* Free memory and close the file */
 		free(string);
-		free(num_str);
-		free(opcode);
 		free_stack(&stack);
 		fclose(file);
 	}
