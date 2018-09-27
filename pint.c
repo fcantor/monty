@@ -1,7 +1,16 @@
 #include "monty.h"
+
+/**
+ * pint - This function prints the integer of the head
+ * @stack: Pointer to the stack
+ * @line_number: Line number of the file
+ * Return: Pointer to the stack
+ */
+
 stack_t *pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *head;
+
 	head = *stack;
 
 	if (head == NULL)
