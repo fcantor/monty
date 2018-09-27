@@ -89,7 +89,7 @@ int main(int argc, char **argv)
 				exit(EXIT_FAILURE);
 			}
 
-			if (num_str[0] == '-')
+			if (num_str[0] == '-' && num_str[1] != '\0')
                                 i = 1;
 
 
