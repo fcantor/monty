@@ -1,4 +1,4 @@
-nclude "monty.h"
+#include "monty.h"
 
 /* Initialize the global variable */
 int token = 0;
@@ -12,12 +12,12 @@ int token = 0;
 int main(int argc, char **argv)
 {
 	const char *filename;
-	char *string, *opcode;
+	char *string, *opcode, *num_str;
 	size_t nbytes = 1;
 	FILE *file;
 	unsigned int line_num = 0;
 	ssize_t read_c = 0;
-	stack_t *stack, *node;
+	stack_t *stack;
 	char *error;
 
 	stack = NULL;
@@ -36,6 +36,7 @@ int main(int argc, char **argv)
 		/* Read file line by line */
 		while (read_c != EOF)
 		{
+			token = 0;
 			string = NULL;
 			read_c = getline(&string, &nbytes, file);
 			if (read_c == -1)
@@ -60,16 +61,27 @@ int main(int argc, char **argv)
 			}
 
 			/* Parse the first elements of the line */
-			opcode = strtok(string, " ");
+			opcode = strtok(string, " \n");
 
-			token = atoi(strtok(NULL, " "));
-			printf("token: %d\n", token);
-			printf("%s", opcode);
+			/* Check whether the first token is the opcode 'push' */
+			if (strcmp(opcode, "push") == 0)
+				num_str = strtok(NULL, " \n");
 
-			node = op_func(opcode)(&stack, line_num);
+			/* Check if token is a digit or NULL */
+			if (num_str == NULL)
+			{
+				fprintf(stderr, "L%d: usage: push integer\n",
+					line_num);
+				free(string);
+				free_stack(stack);
+				fclose(file);
+				exit(EXIT_FAILURE);
+			}
+			else
+				token = atoi(num_str);
 
-			printf("After push:\n");
-			printf("%s %d == %d\n", opcode, node->n, token);
+			op_func(opcode)(&stack, line_num);
+
 		}
 		/* Free memory and close the file */
 
