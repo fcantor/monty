@@ -18,7 +18,6 @@ int main(int argc, char **argv)
 	unsigned int line_num = 0, i;
 	ssize_t read_c = 0;
 	stack_t *stack;
-	char *error;
 
 	stack = NULL;
 	if (argc != 2)
@@ -113,7 +112,8 @@ int main(int argc, char **argv)
 			else
 				token = atoi(num_str);
 		}
-		op_func(opcode)(&stack, line_num);
+		op_func(opcode, &stack, line_num)(&stack, line_num);
+
 	}
 	/* Free memory and close the file */
 	free(string);
