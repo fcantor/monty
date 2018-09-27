@@ -14,12 +14,14 @@ stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_num)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"add", add},
+		{"nop", nop},
 		{NULL, NULL}
 	};
 	char *opcode;
 	int i = 0;
 
-	while (i < 4)
+	while (i < 6)
 	{
 		opcode = (ops[i]).opcode;
 		/* if the opcode is in the list */
