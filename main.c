@@ -18,14 +18,12 @@ int main(int argc, char **argv)
 	unsigned int line_num = 0, i;
 	ssize_t read_c = 0;
 	stack_t *stack;
-	char *error;
 
 	stack = NULL;
 	if (argc != 2)
 	{
-		error = "Wrong number of arguments\n";
-		write(STDERR_FILENO, error, strlen(error));
-		exit(99);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -34,8 +32,8 @@ int main(int argc, char **argv)
 	file = fopen(filename, "r");
 	if (file == NULL)
 	{
-		printf("Failed to open file\n");
-		exit(1);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
 	}
 
 	/* Read file line by line */
@@ -45,14 +43,16 @@ int main(int argc, char **argv)
 		if (string != NULL)
 			free(string);
 		string = NULL;
+
 		read_c = getline(&string, &nbytes, file);
+
 		if (read_c == -1)
 		{
 			free(string);
 			if (stack != NULL)
 				free_stack(&stack);
 			fclose(file);
-			exit(1);
+			return (0);
 		}
 
 		/* Keep count of the number of lines */
@@ -60,27 +60,18 @@ int main(int argc, char **argv)
 
 		/* Continue if line or string is NULL */
 		if (read_c == 0)
-		{
-			free(string);
 			continue;
-		}
 
 		/* Continue if line had only the new line character */
 		if (read_c == 1)
-		{
-			free(string);
 			continue;
-		}
 
 		/* Parse the first elements of the line */
 		opcode = strtok(string, " \n");
 
 		/* If string is empty, let's continue */
 		if (opcode == NULL)
-		{
-			free(string);
 			continue;
-		}
 
 		/* Check whether the first token is the opcode 'push' */
 		if (strcmp(opcode, "push") == 0)
@@ -114,8 +105,7 @@ int main(int argc, char **argv)
 
 			token = atoi(num_str);
 		}
-
-		op_func(opcode)(&stack, line_num);
+		op_func(opcode, &stack, line_num)(&stack, line_num);
 	}
 	/* Free memory and close the file */
 	free(string);
