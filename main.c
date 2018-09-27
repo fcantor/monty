@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 			if (stack != NULL)
 				free_stack(&stack);
 			fclose(file);
-			exit(1);
+			return (0);
 		}
 
 		/* Keep count of the number of lines */
