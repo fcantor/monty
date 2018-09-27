@@ -4,13 +4,13 @@
  * op_func - This function selects the correct func to
  * perform the operation
  * @s: The operator passed as argument to program
+ * @stack: The pointer to the stack
+ * @line_number: The line number in the file
  * Return: A pointer to the function that corresponds to the operator
  */
 
-stack_t *(*op_func(char *s,
-		   stack_t **stack,
-		   unsigned int line_number))(stack_t **stack,
-					      unsigned int line_number)
+stack_t *(*op_func(char *s, stack_t **stack, unsigned int line_number))(stack_t
+**stack, unsigned int line_number)
 {
 	instruction_t ops[] = {
 		{"push", push},
