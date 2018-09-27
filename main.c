@@ -87,7 +87,17 @@ int main(int argc, char **argv)
 		{
 			num_str = strtok(NULL, " \n");
 
-			/* Make sure string isn't garbage */
+			/* Check if token is a digit or NULL */
+			if (num_str == NULL)
+			{
+				fprintf(stderr, "L%d: usage: push integer\n",
+					line_num);
+				free(string);
+				free_stack(&stack);
+				fclose(file);
+				exit(EXIT_FAILURE);
+			}
+		       /* Make sure string isn't garbage */
 			for (i = 0; num_str[i] != '\0'; i++)
 			{
 				if (isdigit(num_str[i]) == 0)
@@ -101,19 +111,10 @@ int main(int argc, char **argv)
 					exit(EXIT_FAILURE);
 				}
 			}
-			/* Check if token is a digit or NULL */
-			if (num_str == NULL)
-			{
-				fprintf(stderr, "L%d: usage: push integer\n",
-					line_num);
-				free(string);
-				free_stack(&stack);
-				fclose(file);
-				exit(EXIT_FAILURE);
-			}
-			else
-				token = atoi(num_str);
+
+			token = atoi(num_str);
 		}
+
 		op_func(opcode)(&stack, line_num);
 	}
 	/* Free memory and close the file */

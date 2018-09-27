@@ -7,7 +7,8 @@
  * Return: Pointer to the stack
  */
 
-stack_t *nop(stack_t **stack, unsigned int line_number __attribute__((unused)))
+stack_t *nop(stack_t **stack __attribute__ ((unused)),
+	  unsigned int line_number __attribute__((unused)))
 {
-	return (*stack);
+	return (0);
 }
