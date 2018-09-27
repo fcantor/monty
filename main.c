@@ -90,9 +90,7 @@ int main(int argc, char **argv)
 			}
 
 			if (num_str[0] == '-' && num_str[1] != '\0')
-                                i = 1;
-
-
+				i = 1;
 			/* Make sure string isn't garbage */
 			for (; num_str[i] != '\0'; i++)
 			{
