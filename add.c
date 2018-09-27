@@ -8,13 +8,13 @@
  * Return: The edited stack
  */
 
-stack_t *add(stack_t **stack, unsigned int line_number __attribute__((unused)))
+stack_t *add(stack_t **stack, unsigned int line_number)
 {
 	int sum = 0;
 	stack_t *head = *stack;
 
 	/* Check if stack is NULL */
-	if (!head)
+	if (!head || !head->next)
 	{
 		/* Print error, free, and exit */
 		fprintf(stderr, "L%d: can't add, stack too short", line_number);
@@ -25,7 +25,7 @@ stack_t *add(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	/* Sum first two nodes, and store it in second node */
 	sum = (head->n) + (head->next->n);
 	head->next->n = sum;
-	pop(stack, line_number);
+	pop(stack, 0);
 
 	return (*stack);
 }
