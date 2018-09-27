@@ -18,14 +18,12 @@ int main(int argc, char **argv)
 	unsigned int line_num = 0, i;
 	ssize_t read_c = 0;
 	stack_t *stack;
-	char *error;
 
 	stack = NULL;
 	if (argc != 2)
 	{
-		error = "Wrong number of arguments\n";
-		write(STDERR_FILENO, error, strlen(error));
-		exit(99);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -34,8 +32,8 @@ int main(int argc, char **argv)
 	file = fopen(filename, "r");
 	if (file == NULL)
 	{
-		printf("Failed to open file\n");
-		exit(1);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
 	}
 
 	/* Read file line by line */
@@ -52,7 +50,7 @@ int main(int argc, char **argv)
 			if (stack != NULL)
 				free_stack(&stack);
 			fclose(file);
-			exit(1);
+			return (0);
 		}
 
 		/* Keep count of the number of lines */
@@ -87,7 +85,17 @@ int main(int argc, char **argv)
 		{
 			num_str = strtok(NULL, " \n");
 
-			/* Make sure string isn't garbage */
+			/* Check if token is a digit or NULL */
+			if (num_str == NULL)
+			{
+				fprintf(stderr, "L%d: usage: push integer\n",
+					line_num);
+				free(string);
+				free_stack(&stack);
+				fclose(file);
+				exit(EXIT_FAILURE);
+			}
+		       /* Make sure string isn't garbage */
 			for (i = 0; num_str[i] != '\0'; i++)
 			{
 				if (isdigit(num_str[i]) == 0)
@@ -101,20 +109,10 @@ int main(int argc, char **argv)
 					exit(EXIT_FAILURE);
 				}
 			}
-			/* Check if token is a digit or NULL */
-			if (num_str == NULL)
-			{
-				fprintf(stderr, "L%d: usage: push integer\n",
-					line_num);
-				free(string);
-				free_stack(&stack);
-				fclose(file);
-				exit(EXIT_FAILURE);
-			}
-			else
-				token = atoi(num_str);
+
+			token = atoi(num_str);
 		}
-		op_func(opcode)(&stack, line_num);
+		op_func(opcode, &stack, line_num)(&stack, line_num);
 	}
 	/* Free memory and close the file */
 	free(string);
