@@ -6,21 +6,9 @@
  * @line_number: unused variable
  * Return: address of the new node
  */
-stack_t *push(stack_t **stack,
-	      unsigned int line_number __attribute__((unused)))
+stack_t *push(stack_t **stack, unsigned int line_number __attribute__((unused)))
 {
 	stack_t *new_node;
-	char *error;
-
-	printf("Before token check\n");
-	/* Check if token is empty or NULL */
-	if (!token)
-	{
-		printf("Inside token check\n");
-		error = "L<line_number>: usage: push integer\n";
-		write(STDERR_FILENO, error, strlen(error));
-		exit(EXIT_FAILURE);
-	}
 
 	/* Create new node */
 	new_node = malloc(sizeof(stack_t));
