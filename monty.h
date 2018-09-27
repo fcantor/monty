@@ -50,6 +50,7 @@ typedef struct instruction_s
 stack_t *push(stack_t **stack, unsigned int line_number);
 stack_t *pall(stack_t **stack, unsigned int line_number);
 stack_t *pint(stack_t **stack, unsigned int line_number);
+stack_t *pop(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t *stack);
 stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_number);
 
