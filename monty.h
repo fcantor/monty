@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 /* Declaration of the global variables */
 extern int token;
@@ -52,8 +53,9 @@ stack_t *pall(stack_t **stack, unsigned int line_number);
 stack_t *pint(stack_t **stack, unsigned int line_number);
 stack_t *pop(stack_t **stack, unsigned int line_number);
 stack_t *swap(stack_t **stack, unsigned int line_number);
-
 void free_stack(stack_t **stack);
 stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_number);
+stack_t *add(stack_t **stack, unsigned int line_number);
+stack_t *nop(stack_t **stack, unsigned int line_number);
 
 #endif /* _MONTY_H_ */

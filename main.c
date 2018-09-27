@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	char *string = NULL, *opcode, *num_str;
 	size_t nbytes = 1;
 	FILE *file;
-	unsigned int line_num = 0;
+	unsigned int line_num = 0, i;
 	ssize_t read_c = 0;
 	stack_t *stack;
 	char *error;
@@ -41,7 +41,6 @@ int main(int argc, char **argv)
 				free(string);
 			string = NULL;
 			read_c = getline(&string, &nbytes, file);
-
 			if (read_c == -1)
 			{
 				free(string);
@@ -54,7 +53,7 @@ int main(int argc, char **argv)
 			/* Keep count of the number of lines */
 			line_num++;
 
-			/* Continue if line had only the null byte */
+			/* Continue if line or string is NULL */
 			if (read_c == 0)
 			{
 				free(string);
@@ -83,19 +82,33 @@ int main(int argc, char **argv)
 			{
 				num_str = strtok(NULL, " \n");
 
-				/* Check if token is a digit or NULL */
-				if (num_str == NULL)
-				{
-					fprintf(stderr, "L%d: usage: push integer\n",
-						line_num);
-
-					free(string);
-					free_stack(&stack);
-					fclose(file);
-					exit(EXIT_FAILURE);
-				}
-				else
-					token = atoi(num_str);
+			  /* Make sure string isn't garbage */
+			  for (i = 0; num_str[i] != '\0'; i++)
+			  {
+				  if (isdigit(num_str[i]) == 0)
+				  {
+					  fprintf(stderr,
+						  "L%d: usage: push integer\n",
+						  line_num);
+					  free(string);
+					  free_stack(&stack);
+					  fclose(file);
+					  exit(EXIT_FAILURE);
+				  }
+			  }
+        
+  			/* Check if token is a digit or NULL */
+	  		if (num_str == NULL)
+		  	{
+			  	fprintf(stderr, "L%d: usage: push integer\n",
+				  	line_num);
+				  free(string);
+				  free_stack(&stack);
+				  fclose(file);
+				  exit(EXIT_FAILURE);
+			  }
+			  else
+				  token = atoi(num_str);
 			}
 			op_func(opcode)(&stack, line_num);
 		}
