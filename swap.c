@@ -23,6 +23,7 @@ stack_t *swap(stack_t **stack, unsigned int line_number __attribute__((unused)))
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n",
 			line_number);
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 
