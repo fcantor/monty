@@ -2,9 +2,9 @@
 
 /**
  * pop - This function deletes the node at the top of the stack
- * @head: The head node of the linked list
- * @inde: The line number
- * Return: 1 for success, else -1 for failure
+ * @stack: Pointer to the stack
+ * @line_number: Line number of the file
+ * Return: Pointer to the stack
  */
 
 stack_t *pop(stack_t **stack, unsigned int line_number __attribute__((unused)))

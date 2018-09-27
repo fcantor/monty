@@ -21,108 +21,105 @@ int main(int argc, char **argv)
 	char *error;
 
 	stack = NULL;
-	if (argc == 2)
-	{
-		filename = argv[1];
-
-		/* Open File with the bytecodes */
-		file = fopen(filename, "r");
-		if (file == NULL)
-		{
-			printf("Failed to open file\n");
-			exit(1);
-		}
-
-		/* Read file line by line */
-		while (read_c != EOF)
-		{
-			token = 0;
-			if (string != NULL)
-				free(string);
-			string = NULL;
-			read_c = getline(&string, &nbytes, file);
-			if (read_c == -1)
-			{
-				free(string);
-				if (stack != NULL)
-					free_stack(&stack);
-				fclose(file);
-				exit(1);
-			}
-
-			/* Keep count of the number of lines */
-			line_num++;
-
-			/* Continue if line or string is NULL */
-			if (read_c == 0)
-			{
-				free(string);
-				continue;
-			}
-
-			/* Continue if line had only the new line character */
-			if (read_c == 1)
-			{
-				free(string);
-				continue;
-			}
-
-			/* Parse the first elements of the line */
-			opcode = strtok(string, " \n");
-
-			/* If string is empty, let's continue */
-			if (opcode == NULL)
-			{
-				free(string);
-				continue;
-			}
-
-			/* Check whether the first token is the opcode 'push' */
-			if (strcmp(opcode, "push") == 0)
-			{
-				num_str = strtok(NULL, " \n");
-
-			  /* Make sure string isn't garbage */
-			  for (i = 0; num_str[i] != '\0'; i++)
-			  {
-				  if (isdigit(num_str[i]) == 0)
-				  {
-					  fprintf(stderr,
-						  "L%d: usage: push integer\n",
-						  line_num);
-					  free(string);
-					  free_stack(&stack);
-					  fclose(file);
-					  exit(EXIT_FAILURE);
-				  }
-			  }
-        
-  			/* Check if token is a digit or NULL */
-	  		if (num_str == NULL)
-		  	{
-			  	fprintf(stderr, "L%d: usage: push integer\n",
-				  	line_num);
-				  free(string);
-				  free_stack(&stack);
-				  fclose(file);
-				  exit(EXIT_FAILURE);
-			  }
-			  else
-				  token = atoi(num_str);
-			}
-			op_func(opcode)(&stack, line_num);
-		}
-		/* Free memory and close the file */
-		free(string);
-		free_stack(&stack);
-		fclose(file);
-	}
-	else
+	if (argc != 2)
 	{
 		error = "Wrong number of arguments\n";
 		write(STDERR_FILENO, error, strlen(error));
 		exit(99);
 	}
+
+	filename = argv[1];
+
+	/* Open File with the bytecodes */
+	file = fopen(filename, "r");
+	if (file == NULL)
+	{
+		printf("Failed to open file\n");
+		exit(1);
+	}
+
+	/* Read file line by line */
+	while (read_c != EOF)
+	{
+		token = 0;
+		if (string != NULL)
+			free(string);
+		string = NULL;
+		read_c = getline(&string, &nbytes, file);
+		if (read_c == -1)
+		{
+			free(string);
+			if (stack != NULL)
+				free_stack(&stack);
+			fclose(file);
+			exit(1);
+		}
+
+		/* Keep count of the number of lines */
+		line_num++;
+
+		/* Continue if line or string is NULL */
+		if (read_c == 0)
+		{
+			free(string);
+			continue;
+		}
+
+		/* Continue if line had only the new line character */
+		if (read_c == 1)
+		{
+			free(string);
+			continue;
+		}
+
+		/* Parse the first elements of the line */
+		opcode = strtok(string, " \n");
+
+		/* If string is empty, let's continue */
+		if (opcode == NULL)
+		{
+			free(string);
+			continue;
+		}
+
+		/* Check whether the first token is the opcode 'push' */
+		if (strcmp(opcode, "push") == 0)
+		{
+			num_str = strtok(NULL, " \n");
+
+			/* Make sure string isn't garbage */
+			for (i = 0; num_str[i] != '\0'; i++)
+			{
+				if (isdigit(num_str[i]) == 0)
+				{
+					fprintf(stderr,
+						"L%d: usage: push integer\n",
+						line_num);
+					free(string);
+					free_stack(&stack);
+					fclose(file);
+					exit(EXIT_FAILURE);
+				}
+			}
+			/* Check if token is a digit or NULL */
+			if (num_str == NULL)
+			{
+				fprintf(stderr, "L%d: usage: push integer\n",
+					line_num);
+				free(string);
+				free_stack(&stack);
+				fclose(file);
+				exit(EXIT_FAILURE);
+			}
+			else
+				token = atoi(num_str);
+		}
+		op_func(opcode)(&stack, line_num);
+	}
+	/* Free memory and close the file */
+	free(string);
+	free_stack(&stack);
+	fclose(file);
 
 	return (0);
 }

@@ -6,7 +6,8 @@
  * @line_number: unused variable
  * Return: the address of the first node
  */
-stack_t *swap(stack_t **stack, unsigned int line_number __attribute__((unused)))
+stack_t *swap(stack_t **stack,
+	      unsigned int line_number __attribute__((unused)))
 {
 	stack_t *head;
 	int tmp;
