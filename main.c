@@ -82,13 +82,10 @@ int main(int argc, char **argv)
 				token = atoi(num_str);
 
 			op_func(opcode)(&stack, line_num);
-
-
 		}
 		/* Free memory and close the file */
-
+		free(string);
 		free_stack(stack);
-
 		fclose(file);
 	}
 	else
