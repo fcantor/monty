@@ -12,7 +12,7 @@ int token = 0;
 int main(int argc, char **argv)
 {
 	const char *filename;
-	char *string, *opcode, *num_str;
+	char *string = NULL, *opcode, *num_str;
 	size_t nbytes = 1;
 	FILE *file;
 	unsigned int line_num = 0;
@@ -37,12 +37,16 @@ int main(int argc, char **argv)
 		while (read_c != EOF)
 		{
 			token = 0;
+			if (string != NULL)
+				free(string);
 			string = NULL;
 			read_c = getline(&string, &nbytes, file);
 
 			if (read_c == -1)
 			{
 				free(string);
+				if (stack != NULL)
+					free_stack(&stack);
 				fclose(file);
 				exit(1);
 			}
@@ -52,7 +56,10 @@ int main(int argc, char **argv)
 
 			/* Continue if line had only the null byte */
 			if (read_c == 0)
+			{
+				free(string);
 				continue;
+			}
 
 			/* Continue if line had only the new line character */
 			if (read_c == 1)
@@ -66,30 +73,35 @@ int main(int argc, char **argv)
 
 			/* If string is empty, let's continue */
 			if (opcode == NULL)
+			{
+				free(string);
 				continue;
+			}
 
 			/* Check whether the first token is the opcode 'push' */
 			if (strcmp(opcode, "push") == 0)
+			{
 				num_str = strtok(NULL, " \n");
 
-			/* Check if token is a digit or NULL */
-			if (num_str == NULL)
-			{
-				fprintf(stderr, "L%d: usage: push integer\n",
-					line_num);
-				free(string);
-				free_stack(stack);
-				fclose(file);
-				exit(EXIT_FAILURE);
-			}
-			else
-				token = atoi(num_str);
+				/* Check if token is a digit or NULL */
+				if (num_str == NULL)
+				{
+					fprintf(stderr, "L%d: usage: push integer\n",
+						line_num);
 
+					free(string);
+					free_stack(&stack);
+					fclose(file);
+					exit(EXIT_FAILURE);
+				}
+				else
+					token = atoi(num_str);
+			}
 			op_func(opcode)(&stack, line_num);
 		}
 		/* Free memory and close the file */
 		free(string);
-		free_stack(stack);
+		free_stack(&stack);
 		fclose(file);
 	}
 	else
