@@ -14,8 +14,11 @@ stack_t *push(stack_t **stack,
 	/* Create new node */
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
-		return (NULL);
-
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		free_stack(stack);
+		exit(EXIT_FAILURE);
+	}
 	/* Initialize the new node with the value of token */
 	new_node->n = token;
 	/* New node is placed at the beginning of the list */

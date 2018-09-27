@@ -23,9 +23,8 @@ int main(int argc, char **argv)
 	stack = NULL;
 	if (argc != 2)
 	{
-		error = "Wrong number of arguments\n";
-		write(STDERR_FILENO, error, strlen(error));
-		exit(99);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -34,8 +33,8 @@ int main(int argc, char **argv)
 	file = fopen(filename, "r");
 	if (file == NULL)
 	{
-		printf("Failed to open file\n");
-		exit(1);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
 	}
 
 	/* Read file line by line */

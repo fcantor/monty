@@ -34,5 +34,9 @@ stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_num)
 		i++;
 	}
 
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_num, opcode);
+	free_stack(stack);
+	exit(EXIT_FAILURE);
+
 	return (NULL);
 }
