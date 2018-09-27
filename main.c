@@ -68,6 +68,11 @@ int main(int argc, char **argv)
 
 		/* Parse the first elements of the line */
 		opcode = strtok(string, " \n");
+		if (opcode[0] == '#')
+		{
+			nop(&stack, line_num);
+			continue;
+		}
 
 		/* If string is empty, let's continue */
 		if (opcode == NULL)
