@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /* Initialize the global variable */
-int token = 0;
+int token = 1;
 
 /**
  * main - Interprets bytecode
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	/* Read file line by line */
 	while (read_c != EOF)
 	{
-		token = 0;
+		token = 1;
 		if (string != NULL)
 			free(string);
 		string = NULL;
@@ -88,9 +88,12 @@ int main(int argc, char **argv)
 				fclose(file);
 				exit(EXIT_FAILURE);
 			}
-		       /* Make sure string isn't garbage */
+			/* Make sure string isn't garbage */
 			for (i = 0; num_str[i] != '\0'; i++)
 			{
+				if (num_str[0] == '-')
+					i++;
+
 				if (isdigit(num_str[i]) == 0)
 				{
 					fprintf(stderr,
