@@ -18,14 +18,12 @@ int main(int argc, char **argv)
 	unsigned int line_num = 0, i;
 	ssize_t read_c = 0;
 	stack_t *stack;
-	char *error;
 
 	stack = NULL;
 	if (argc != 2)
 	{
-		error = "Wrong number of arguments\n";
-		write(STDERR_FILENO, error, strlen(error));
-		exit(99);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -34,8 +32,8 @@ int main(int argc, char **argv)
 	file = fopen(filename, "r");
 	if (file == NULL)
 	{
-		printf("Failed to open file\n");
-		exit(1);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
 	}
 
 	/* Read file line by line */
@@ -114,8 +112,7 @@ int main(int argc, char **argv)
 
 			token = atoi(num_str);
 		}
-
-		op_func(opcode)(&stack, line_num);
+		op_func(opcode, &stack, line_num)(&stack, line_num);
 	}
 	/* Free memory and close the file */
 	free(string);
