@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 /* Declaration of the global variables */
 extern int token;
