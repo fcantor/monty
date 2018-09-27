@@ -22,12 +22,13 @@ stack_t *(*op_func(char *s, stack_t **stack, unsigned int line_number))(stack_t
 		{"swap", swap},
 		{"div", div_op},
 		{"mul", mul_op},
+		{"pchar", pchar},
 		{NULL, NULL}
 	};
 	char *opcode;
 	int i = 0;
 
-	while (i < 9)
+	while (i < 10)
 	{
 		opcode = (ops[i]).opcode;
 		/* if the opcode is in the list */
