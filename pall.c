@@ -13,6 +13,11 @@ stack_t *pall(stack_t **stack, unsigned int line_number __attribute__((unused)))
 
 	tmp = *stack;
 
+	if (*stack == NULL)
+	{
+		return (NULL);
+	}
+
 	while (tmp != NULL)
 	{
 		printf("%d\n", tmp->n);
