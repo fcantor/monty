@@ -5,15 +5,16 @@
  * @head: pointer to the stack
  * Return: Nothing
  */
-void free_stack(stack_t *head)
+void free_stack(stack_t **stack)
 {
-	stack_t *tmp_head;
+	stack_t *head;
+	stack_t *tmp;
 
-	/* Find the last node */
+	head = *stack;
 	while (head)
 	{
-		tmp_head = head;
+		tmp = head;
 		head = head->next;
-		free(tmp_head);
+		free(tmp);
 	}
 }

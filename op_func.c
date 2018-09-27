@@ -16,6 +16,7 @@ stack_t *(*op_func(char *s))(stack_t **stack, unsigned int line_num)
 		{"pop", pop},
 		{"add", add},
 		{"nop", nop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
 	char *opcode;
