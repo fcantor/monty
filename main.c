@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 			token = 0;
 			string = NULL;
 			read_c = getline(&string, &nbytes, file);
+
 			if (read_c == -1)
 			{
 				free(string);
@@ -81,6 +82,7 @@ int main(int argc, char **argv)
 				token = atoi(num_str);
 
 			op_func(opcode)(&stack, line_num);
+
 
 		}
 		/* Free memory and close the file */
