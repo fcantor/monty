@@ -64,5 +64,6 @@ stack_t *mod(stack_t **stack, unsigned int line_number);
 stack_t *div_op(stack_t **stack, unsigned int line_number);
 stack_t *mul_op(stack_t **stack, unsigned int line_num);
 stack_t *pchar(stack_t **stack, unsigned int line_num);
+void exit_free(char *string, stack_t **stack, FILE *file, int flag);
 
 #endif /* _MONTY_H_ */

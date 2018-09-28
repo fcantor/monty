@@ -89,10 +89,7 @@ int main(int argc, char **argv)
 			{
 				fprintf(stderr, "L%d: usage: push integer\n",
 					line_num);
-				free(string);
-				free_stack(&stack);
-				fclose(file);
-				exit(EXIT_FAILURE);
+				exit_free(string, &stack, file, 1);
 			}
 
 			if (num_str[0] == '-' && num_str[1] != '\0')
@@ -105,10 +102,7 @@ int main(int argc, char **argv)
 					fprintf(stderr,
 						"L%d: usage: push integer\n",
 						line_num);
-					free(string);
-					free_stack(&stack);
-					fclose(file);
-					exit(EXIT_FAILURE);
+					exit_free(string, &stack, file, 1);
 				}
 			}
 
@@ -117,9 +111,7 @@ int main(int argc, char **argv)
 		op_func(opcode, &stack, line_num)(&stack, line_num);
 	}
 	/* Free memory and close the file */
-	free(string);
-	free_stack(&stack);
-	fclose(file);
+	exit_free(string, &stack, file, 0);
 
 	return (0);
 }
