@@ -1,6 +1,6 @@
 # monty
 
-<p align="center"> 
+<p align="center">
 <img src="https://payload148.cargocollective.com/1/11/353777/5270131/Dogs.jpg">
 </p>
 
@@ -14,6 +14,13 @@ Project | Description
 09.m | Contains the opcode ```swap```, which swaps the top two elements of the stack.
 12.m | Contains the opcode ```add```, which adds the top two elements of the stack.
 13.m | Contains the opcode ```nop```, which doesn't do anything.
+13.m | Contains the opcode ```sub```, subtracts the top element of the stack from the second top 
+13.m | Contains the opcode ```div```, divides the second top element of the stack by the top element of the stack.
+13.m | Contains the opcode ```mul```, multiplies the second top element of the stack with the top element of the stack.
+13.m | Contains the opcode ```mod```, computes the rest of the division of the second top element of the stack by the top element of the stack.
+13.m | Contains the opcode ```pchar```, prints the char at the top of the stack
+13.m | Contains the opcode ```pstr```, prints the string starting at the top of the stack
+
 
 
 ## Authors
