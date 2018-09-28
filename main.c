@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	char *string = NULL, *opcode, *num_str;
 	size_t nbytes = 1;
 	FILE *file;
-	unsigned int line_num = 0, i;
+	unsigned int line_num = 0, i = 0;
 	ssize_t read_c = 0;
 	stack_t *stack;
 
@@ -68,6 +68,11 @@ int main(int argc, char **argv)
 
 		/* Parse the first elements of the line */
 		opcode = strtok(string, " \n");
+		if (opcode[0] == '#')
+		{
+			nop(&stack, line_num);
+			continue;
+		}
 
 		/* If string is empty, let's continue */
 		if (opcode == NULL)
@@ -88,12 +93,12 @@ int main(int argc, char **argv)
 				fclose(file);
 				exit(EXIT_FAILURE);
 			}
-			/* Make sure string isn't garbage */
-			for (i = 0; num_str[i] != '\0'; i++)
-			{
-				if (num_str[0] == '-')
-					i++;
 
+			if (num_str[0] == '-' && num_str[1] != '\0')
+				i = 1;
+			/* Make sure string isn't garbage */
+			for (; num_str[i] != '\0'; i++)
+			{
 				if (isdigit(num_str[i]) == 0)
 				{
 					fprintf(stderr,
