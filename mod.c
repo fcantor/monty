@@ -12,9 +12,10 @@ stack_t *mod(stack_t **stack, unsigned int line_number)
 	stack_t *head = *stack;
 	int mod_int = 0;
 
-	if (!head)
+	if (!head || !(head->next))
 	{
-		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't mod, stack too short\n",
+line_number);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
