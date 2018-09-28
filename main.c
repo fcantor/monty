@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 	while (read_c != EOF)
 	{
 		token = 1;
+		i = 0;
 		if (string != NULL)
 			free(string);
 		string = NULL;
